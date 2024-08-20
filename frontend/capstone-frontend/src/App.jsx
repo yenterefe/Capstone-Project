@@ -1,9 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { GoogleMap, useJsApiLoader, Marker, Polygon } from '@react-google-maps/api';
 import "./App.css";
-import Title from "./Title";
-import Button from "./Button";
-
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const containerStyle = {
@@ -66,8 +63,6 @@ function App() {
 
   return (
     <>
-      <Title />
-      <Button />
       <div>
         <input
           type="text"
