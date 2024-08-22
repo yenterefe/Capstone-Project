@@ -1,7 +1,7 @@
 export default function Title() {
   return (
     <>
-      <h1>Title</h1>
+      <h1 className="my-5">Title</h1>
     </>
   );
 }
