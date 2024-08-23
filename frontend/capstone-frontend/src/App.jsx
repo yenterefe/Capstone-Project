@@ -13,7 +13,8 @@ const initialCoordinates = {
   lng: -82.9988
 };
 
-const MARKERS = [
+// Update markers for fresh green markets to load on map
+const MARKET_MARKERS = [
   { id: 1, lat: 37.9612, lng: -81.9988 },
   { id: 2, lat: 36.9612, lng: -80.9988 }
 ];
@@ -66,14 +67,6 @@ function App() {
     }
   };
 
-  // const handleDistance = (event) => {
-  //   const latLng = event.latLng;
-  //   const destination = {
-  //     lat: latLng.lat(),
-  //     lng: latLng.lng()
-  //   };
-
-
   const handleDirection = (event) => {
     const latLng = event.latLng;
     const destination = {
@@ -91,10 +84,6 @@ function App() {
         destination,
         travelMode: 'WALKING',
         provideRouteAlternatives: false,
-        drivingOptions: {
-          departureTime: new Date(),
-          trafficModel: 'pessimistic'
-        },
         unitSystem: window.google.maps.UnitSystem.IMPERIAL
       }, (result, status) => {
         if (status === 'OK') {
@@ -130,7 +119,7 @@ function App() {
           onUnmount={onUnmount}
         >
           <Marker position={coordinates} />
-          {MARKERS.map(({ id, lat, lng }) => (
+          {MARKET_MARKERS.map(({ id, lat, lng }) => (
             <Marker
               onClick={handleDirection}
               key={id}
@@ -138,6 +127,7 @@ function App() {
             />
           ))}
 
+          {/* import from our API to create food desert polygon */}
           {/* Uncomment and adjust as needed */}
           {/* <Polygon
             paths={[
