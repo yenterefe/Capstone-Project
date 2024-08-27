@@ -1,19 +1,16 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   GoogleMap,
   useJsApiLoader,
   Marker,
   Polygon,
-  DirectionsService,
-  DirectionsRenderer,
 } from "@react-google-maps/api";
 import "./App.css";
-import Mission from "./Mission";
-import Home from "./Home";
-import Team from "./Team";
+import Popup from "./Popup";
 
-const API_KEY = import.meta.env.VITE_API_KEY; // Ensure API_KEY is securely managed
+const API_KEY = import.meta.env.VITE_API_KEY;
 const containerStyle = {
   width: "950px",
   height: "950px",
@@ -38,16 +35,36 @@ const bounds = {
 };
 
 function App() {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map",
-    googleMapsApiKey: API_KEY,
-  });
-
   const [map, setMap] = useState(null);
   const [coordinates, setCoordinates] = useState(initialCoordinates);
   const [inputValue, setInputValue] = useState("");
+  const [polygonPaths, setPolygonPaths] = useState([]);
+  const [popup, setPopup] = useState(false);
   const [directions, setDirections] = useState(null);
-  const [distance, setDistance] = useState();
+  const [distances, setDistances] = useState([]); // Changed to store multiple distances
+
+  const fetchCoordinates = async () => {
+    const responses = await Promise.all([
+      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7823"),
+      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7825"),
+      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7827"),
+      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7829"),
+      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c782b"),
+      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c782d"),
+    ]);
+
+    const paths = responses.map((response) => response.data);
+    setPolygonPaths(paths);
+  };
+
+  useEffect(() => {
+    fetchCoordinates();
+  }, []);
+
+  const { isLoaded } = useJsApiLoader({
+    id: "fd8447407e7cf714",
+    googleMapsApiKey: API_KEY,
+  });
 
   const onLoad = useCallback((map) => {
     const boundsObj = new window.google.maps.LatLngBounds(
@@ -103,10 +120,12 @@ function App() {
             setDirections(result);
             directionsRenderer.setDirections(result);
 
-            // This will give the direction in miles
+            // Store multiple distances
             const route = result.routes[0];
-
-            setDistance(route.legs[0].distance.text);
+            setDistances((prevDistances) => [
+              ...prevDistances,
+              route.legs[0].distance.text,
+            ]);
           } else {
             console.error(`Error fetching directions: ${result}`);
           }
@@ -114,6 +133,14 @@ function App() {
       );
     }
   };
+
+  function activatePopup() {
+    setPopup(true);
+  }
+
+  function deactivatePopup() {
+    setPopup(false);
+  }
 
   return (
     <>
@@ -145,22 +172,23 @@ function App() {
               />
             ))}
 
-            {/* import from our API to create food desert polygon */}
-            {/* Uncomment and adjust as needed */}
-            {/* <Polygon
-            paths={[
-              { lat: 25.774, lng: -80.19 },
-              { lat: 39.9612, lng: -82.9988 },
-              { lat: 40.321, lng: -81.757 },
-              { lat: 50.774, lng: -80.19 },
-              { lat: 50.774, lng: -50.19 }
-            ]}
-          /> */}
+            {polygonPaths.length > 0 && (
+              <Polygon
+                onMouseOver={activatePopup}
+                onMouseOut={deactivatePopup}
+                paths={polygonPaths.flat()} // Flatten the array of polygons into a single array of coordinates
+              />
+            )}
           </GoogleMap>
         )}
-
-        <div>The walking distance is: {distance}</div>
       </div>
+      {popup ? <Popup /> : null}
+
+      <ul>
+        {distances.map((distance, index) => (
+          <li key={index}>Walking distance: {distance}</li>
+        ))}
+      </ul>
     </>
   );
 }

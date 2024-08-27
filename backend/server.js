@@ -2,18 +2,15 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 app.use(express.json());
+const cors = require("cors");
+app.use(cors());
+
+
 
 const PORT = 3000;
 
 // Schema to create polygon coordinates
 const coordinatesSchema = new mongoose.Schema({
-    // Saved in case if we need it later
-    // id: {
-    //     type: Number,
-    //     unique: true,
-    //     required: true
-    // },
-
     lat: {
         type: Number,
         unique: true
@@ -23,73 +20,11 @@ const coordinatesSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
-    lat: {
-        type: Number,
-        unique: true
-    },
+},
+)
 
-    lng: {
-        type: Number,
-        unique: true
-    },
-    lat: {
-        type: Number,
-        unique: true
-    },
-
-    lng: {
-        type: Number,
-        unique: true
-    },
-
-    lat: {
-        type: Number,
-        unique: true
-    },
-
-    lng: {
-        type: Number,
-        unique: true
-    },
-
-    lat: {
-        type: Number,
-        unique: true
-    },
-
-    lng: {
-        type: Number,
-        unique: true
-    },
-
-    lat: {
-        type: Number,
-        unique: true
-    },
-
-    lng: {
-        type: Number,
-        unique: true
-    },
-    lat: {
-        type: Number,
-        unique: true
-    },
-
-    lng: {
-        type: Number,
-        unique: true
-    },
-    lat: {
-        type: Number,
-        unique: true
-    },
-
-    lng: {
-        type: Number,
-        unique: true
-    },
-})
+// Creating a composite unique index for lat and lng
+coordinatesSchema.index({ lat: 1, lng: 1 }, { unique: true });
 
 const Coordinates = mongoose.model("coordinates", coordinatesSchema);
 
@@ -107,24 +42,28 @@ async function connectDB() {
     }
 }
 
-//create coordinates for a food desert polygon
+
 app.post("/coordinates", async (req, res) => {
     try {
-        const { id } = req.body;
+        const coordinatesArray = req.body; // Expecting an array of coordinates
 
-        let savedCoordinates = await Coordinates.findById(id);
+        // Save each coordinate
+        const savedCoordinates = await Promise.all(
+            coordinatesArray.map(async (coord) => {
+                // Check if this coordinate already exists
+                const existingCoordinate = await Coordinates.findOne({ lat: coord.lat, lng: coord.lng });
 
-        if (!savedCoordinates) {
-            const coordinates = new Coordinates({ lat, lng });
-            coordinates.save();
-            res.status(200).json("new coordinates created");
-        }
-        else {
-            res.status(400).json("ID already exists. Please create a new ID for your coordinates.")
-        }
-    }
-    catch (error) {
-        res.status(400).json(error);
+                if (!existingCoordinate) {
+                    const newCoordinate = new Coordinates(coord);
+                    return newCoordinate.save();
+                }
+                return existingCoordinate;
+            })
+        );
+
+        res.status(200).json({ message: "Coordinates processed", data: savedCoordinates });
+    } catch (error) {
+        res.status(400).send(error);
     }
 });
 
@@ -148,6 +87,6 @@ app.get("/coordinates/:id", async (req, res) => {
     }
 });
 
-app.listen(PORT, async () => { console.log(`localserver:${PORT}`); await connectDB().catch(console.dir); })
+app.listen(PORT, async () => { console.log(`http://localhost:${PORT}`); await connectDB().catch(console.dir); })
 
 
