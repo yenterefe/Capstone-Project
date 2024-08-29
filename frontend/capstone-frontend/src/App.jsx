@@ -248,9 +248,9 @@ const darkMode = [
 //stylize polygon
 const redPolygonStyle = [
   {
-    "fillColor": "#FFA500", // Red fill color
+    "fillColor": "#FFA500", // Orange fill color
     "fillOpacity": 0.35, // Adjust the fill opacity as needed
-    "strokeColor": "#FFA500", // Red stroke color
+    "strokeColor": "#FFA500", // Orange stroke color
     "strokeOpacity": 0.8, // Adjust the stroke opacity as needed
     "strokeWeight": 2 // Set the stroke weight
   }
