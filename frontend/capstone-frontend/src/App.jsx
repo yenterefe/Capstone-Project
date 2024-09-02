@@ -22,236 +22,241 @@ const initialCoordinates = {
   lng: -82.9988,
 };
 
+const UserMarker = {
+  url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // URL to a custom marker icon
+}
+
+const FreshMarketMarkers = {
+  url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png", // URL to a custom marker icon
+}
+
 //stylizing map
 const darkMode = [
   {
     elementType: "geometry",
     stylers: [
       {
-        color: "#242f3e",
-      },
-    ],
+        color: "#f5f5f5"
+      }
+    ]
+  },
+  {
+    elementType: "labels.icon",
+    stylers: [
+      {
+        visibility: "off"
+      }
+    ]
   },
   {
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#746855",
-      },
-    ],
+        color: "#616161"
+      }
+    ]
   },
   {
     elementType: "labels.text.stroke",
     stylers: [
       {
-        color: "#242f3e",
-      },
-    ],
-  },
-  {
-    featureType: "administrative",
-    elementType: "geometry",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
+        color: "#f5f5f5"
+      }
+    ]
   },
   {
     featureType: "administrative.land_parcel",
     elementType: "labels",
     stylers: [
       {
-        visibility: "off",
-      },
-    ],
+        visibility: "off"
+      }
+    ]
   },
   {
-    featureType: "administrative.locality",
+    featureType: "administrative.land_parcel",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#d59563",
-      },
-    ],
+        color: "#bdbdbd"
+      }
+    ]
   },
   {
     featureType: "poi",
+    elementType: "geometry",
     stylers: [
       {
-        visibility: "off",
-      },
-    ],
+        color: "#eeeeee"
+      }
+    ]
   },
   {
     featureType: "poi",
     elementType: "labels.text",
     stylers: [
       {
-        visibility: "off",
-      },
-    ],
+        visibility: "off"
+      }
+    ]
   },
   {
     featureType: "poi",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#d59563",
-      },
-    ],
+        color: "#757575"
+      }
+    ]
+  },
+  {
+    featureType: "poi.business",
+    stylers: [
+      {
+        visibility: "off"
+      }
+    ]
   },
   {
     featureType: "poi.park",
     elementType: "geometry",
     stylers: [
       {
-        color: "#263c3f",
-      },
-    ],
+        color: "#e5e5e5"
+      }
+    ]
   },
   {
     featureType: "poi.park",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#6b9a76",
-      },
-    ],
+        color: "#9e9e9e"
+      }
+    ]
   },
   {
     featureType: "road",
     elementType: "geometry",
     stylers: [
       {
-        color: "#38414e",
-      },
-    ],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry.stroke",
-    stylers: [
-      {
-        color: "#212a37",
-      },
-    ],
+        color: "#ffffff"
+      }
+    ]
   },
   {
     featureType: "road",
     elementType: "labels.icon",
     stylers: [
       {
-        visibility: "off",
-      },
-    ],
+        visibility: "off"
+      }
+    ]
   },
   {
-    featureType: "road",
+    featureType: "road.arterial",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#9ca5b3",
-      },
-    ],
+        color: "#757575"
+      }
+    ]
   },
   {
     featureType: "road.highway",
     elementType: "geometry",
     stylers: [
       {
-        color: "#746855",
-      },
-    ],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "geometry.stroke",
-    stylers: [
-      {
-        color: "#1f2835",
-      },
-    ],
+        color: "#dadada"
+      }
+    ]
   },
   {
     featureType: "road.highway",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#f3d19c",
-      },
-    ],
+        color: "#616161"
+      }
+    ]
   },
   {
     featureType: "road.local",
     elementType: "labels",
     stylers: [
       {
-        visibility: "off",
-      },
-    ],
+        visibility: "off"
+      }
+    ]
+  },
+  {
+    featureType: "road.local",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        color: "#9e9e9e"
+      }
+    ]
   },
   {
     featureType: "transit",
     stylers: [
       {
-        visibility: "off",
-      },
-    ],
+        visibility: "off"
+      }
+    ]
   },
   {
-    featureType: "transit",
+    featureType: "transit.line",
     elementType: "geometry",
     stylers: [
       {
-        color: "#2f3948",
-      },
-    ],
+        color: "#e5e5e5"
+      }
+    ]
   },
   {
     featureType: "transit.station",
-    elementType: "labels.text.fill",
+    elementType: "geometry",
     stylers: [
       {
-        color: "#d59563",
-      },
-    ],
+        color: "#eeeeee"
+      }
+    ]
   },
   {
     featureType: "water",
     elementType: "geometry",
     stylers: [
       {
-        color: "#17263c",
-      },
-    ],
+        color: "#c9c9c9"
+      }
+    ]
   },
   {
     featureType: "water",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#515c6d",
-      },
-    ],
-  },
-  {
-    featureType: "water",
-    elementType: "labels.text.stroke",
-    stylers: [
-      {
-        color: "#17263c",
-      },
-    ],
+        color: "#9e9e9e"
+      }
+    ]
   },
 ];
+
+const mapOption = {
+  styles: darkMode,
+  streetViewControl: false,
+  mapTypeControl: false,
+  fullscreenControl: false,
+}
 
 //stylize polygon
 const redPolygonStyle = [
   {
-    fillColor: "#FFA500", // Orange fill color
+    fillColor: "#FF0000", // Orange fill color
     fillOpacity: 0.35, // Adjust the fill opacity as needed
-    strokeColor: "#FFA500", // Orange stroke color
+    strokeColor: "#FF0000", // Orange stroke color
     strokeOpacity: 0.8, // Adjust the stroke opacity as needed
     strokeWeight: 2, // Set the stroke weight
   },
@@ -259,8 +264,8 @@ const redPolygonStyle = [
 
 // Update markers for fresh green markets to load on map
 const MARKET_MARKERS = [
-  { id: 1, lat: 37.9612, lng: -81.9988 },
-  { id: 2, lat: 36.9612, lng: -80.9988 },
+  { id: 1, name: "Fresh Market 1", lat: 37.9612, lng: -81.9988 },
+  { id: 2, name: "Fresh Market 2", lat: 36.9612, lng: -80.9988 },
 ];
 
 const bounds = {
@@ -278,15 +283,16 @@ function App() {
   const [popup, setPopup] = useState(false);
   const [directions, setDirections] = useState(null);
   const [distances, setDistances] = useState([]); // Changed to store multiple distances
+  const [showMap, setShowMap] = useState(false);
 
   const fetchCoordinates = async () => {
     const responses = await Promise.all([
-      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7823"),
-      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7825"),
-      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7827"),
-      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c7829"),
-      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c782b"),
-      axios.get("http://localhost:3000/coordinates/66cd365183da7cccc39c782d"),
+      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc1"),
+      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc5"),
+      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc7"),
+      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc3"),
+      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc9"),
+      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dcb"),
     ]);
 
     const paths = responses.map((response) => response.data);
@@ -324,6 +330,7 @@ function App() {
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}&key=${API_KEY}`;
 
     try {
+      setShowMap(true);
       const response = await axios.get(url);
       if (response.data.status === "OK") {
         const { lat, lng } = response.data.results[0].geometry.location;
@@ -426,21 +433,22 @@ function App() {
         >
           🥕
         </button>
-        {isLoaded && (
+        {isLoaded && showMap && (
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={coordinates}
             zoom={15}
             onLoad={onLoad}
             onUnmount={onUnmount}
-            options={{ styles: darkMode }}
+            options={mapOption}
           >
-            <Marker position={coordinates} />
+            <Marker icon={UserMarker} position={coordinates} />
             {MARKET_MARKERS.map(({ id, lat, lng }) => (
               <Marker
                 onClick={handleDirection}
                 key={id}
                 position={{ lat, lng }}
+                icon={FreshMarketMarkers}
               />
             ))}
 
@@ -469,7 +477,7 @@ function App() {
             className="mb-4 mt-5 p-4 bg-white border border-gray-300 rounded-lg shadow-md max-w-full text-lg"
             key={index}
           >
-            Walking distance: {distance}
+            {MARKET_MARKERS[index].name} is a {distance} walk from your location
           </li>
         ))}
       </ul>
