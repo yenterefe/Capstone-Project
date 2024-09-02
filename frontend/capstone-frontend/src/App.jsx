@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import img7 from "./images/img7.png";
 import {
   GoogleMap,
   useJsApiLoader,
   Marker,
-  Polygon
+  Polygon,
 } from "@react-google-maps/api";
 import "./App.css";
 import Popup from "./Popup";
@@ -24,239 +25,237 @@ const initialCoordinates = {
 //stylizing map
 const darkMode = [
   {
-    "elementType": "geometry",
-    "stylers": [
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#242f3e"
-      }
-    ]
+        color: "#242f3e",
+      },
+    ],
   },
   {
-    "elementType": "labels.text.fill",
-    "stylers": [
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#746855"
-      }
-    ]
+        color: "#746855",
+      },
+    ],
   },
   {
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#242f3e"
-      }
-    ]
+        color: "#242f3e",
+      },
+    ],
   },
   {
-    "featureType": "administrative",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels",
-    "stylers": [
+    featureType: "administrative.land_parcel",
+    elementType: "labels",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "administrative.locality",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "administrative.locality",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#d59563"
-      }
-    ]
+        color: "#d59563",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "stylers": [
+    featureType: "poi",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "elementType": "labels.text",
-    "stylers": [
+    featureType: "poi",
+    elementType: "labels.text",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#d59563"
-      }
-    ]
+        color: "#d59563",
+      },
+    ],
   },
   {
-    "featureType": "poi.park",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#263c3f"
-      }
-    ]
+        color: "#263c3f",
+      },
+    ],
   },
   {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "poi.park",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#6b9a76"
-      }
-    ]
+        color: "#6b9a76",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#38414e"
-      }
-    ]
+        color: "#38414e",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [
       {
-        "color": "#212a37"
-      }
-    ]
+        color: "#212a37",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "labels.icon",
-    "stylers": [
+    featureType: "road",
+    elementType: "labels.icon",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#9ca5b3"
-      }
-    ]
+        color: "#9ca5b3",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#746855"
-      }
-    ]
+        color: "#746855",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [
       {
-        "color": "#1f2835"
-      }
-    ]
+        color: "#1f2835",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#f3d19c"
-      }
-    ]
+        color: "#f3d19c",
+      },
+    ],
   },
   {
-    "featureType": "road.local",
-    "elementType": "labels",
-    "stylers": [
+    featureType: "road.local",
+    elementType: "labels",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "transit",
-    "stylers": [
+    featureType: "transit",
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
-    "featureType": "transit",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "transit",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#2f3948"
-      }
-    ]
+        color: "#2f3948",
+      },
+    ],
   },
   {
-    "featureType": "transit.station",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "transit.station",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#d59563"
-      }
-    ]
+        color: "#d59563",
+      },
+    ],
   },
   {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#17263c"
-      }
-    ]
+        color: "#17263c",
+      },
+    ],
   },
   {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#515c6d"
-      }
-    ]
+        color: "#515c6d",
+      },
+    ],
   },
   {
-    "featureType": "water",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    featureType: "water",
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#17263c"
-      }
-    ]
-  }
+        color: "#17263c",
+      },
+    ],
+  },
 ];
 
 //stylize polygon
 const redPolygonStyle = [
   {
-    "fillColor": "#FFA500", // Orange fill color
-    "fillOpacity": 0.35, // Adjust the fill opacity as needed
-    "strokeColor": "#FFA500", // Orange stroke color
-    "strokeOpacity": 0.8, // Adjust the stroke opacity as needed
-    "strokeWeight": 2 // Set the stroke weight
-  }
+    fillColor: "#FFA500", // Orange fill color
+    fillOpacity: 0.35, // Adjust the fill opacity as needed
+    strokeColor: "#FFA500", // Orange stroke color
+    strokeOpacity: 0.8, // Adjust the stroke opacity as needed
+    strokeWeight: 2, // Set the stroke weight
+  },
 ];
-
-
 
 // Update markers for fresh green markets to load on map
 const MARKET_MARKERS = [
@@ -335,11 +334,9 @@ function App() {
       } else {
         console.error("Invalid coordinates");
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error fetching geocode:", error);
     }
-
   };
 
   const handleDirection = (event) => {
@@ -391,17 +388,44 @@ function App() {
 
   return (
     <>
-      <Link to="/Home">Home</Link>
-      <Link to="/Mission">Mission</Link>
-      <Link to="/Team">Team</Link>
+      {/* <Link className="px-2 " to="/Home">
+        Home
+      </Link> */}
+      <div className="flex flex-col items-center">
+        <div>
+          <Link className="px-2" to="/Mission">
+            Mission
+          </Link>
+          <Link className="px-2" to="/Team">
+            Team
+          </Link>
+          <Link className="px-2 " to="/">
+            Home
+          </Link>
+        </div>
+
+        <div className="avatar mt-4">
+          <div className="w-10 rounded-full">
+            <img src={img7} alt="avatar" />
+          </div>
+        </div>
+      </div>
+
       <div>
+        <p>Looking for fresh markets? We can help. </p>
         <input
+          className="w-80 px-8 py-4 mr-2 mb-4 mt-4 rounded-lg border-2 border-gray-300 hover:border-blue-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250"
           type="text"
           placeholder="Search address"
           value={inputValue}
           onChange={handleInput}
         />
-        <button onClick={handleClick}>🔍</button>
+        <button
+          className="px-6 py-3.5 mb-1 mt-1  border-2 border-gray-300 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250 text-md"
+          onClick={handleClick}
+        >
+          🥕
+        </button>
         {isLoaded && (
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -429,20 +453,24 @@ function App() {
                   fillOpacity: redPolygonStyle[0].fillOpacity,
                   strokeColor: redPolygonStyle[0].strokeColor,
                   strokeOpacity: redPolygonStyle[0].strokeOpacity,
-                  strokeWeight: redPolygonStyle[0].strokeWeight
+                  strokeWeight: redPolygonStyle[0].strokeWeight,
                 }}
                 paths={polygonPaths.flat()} // Flatten the array of polygons into a single array of coordinates
               />
             )}
           </GoogleMap>
         )}
-      </div >
-      {popup ? <Popup /> : null
-      }
+      </div>
+      {popup ? <Popup /> : null}
 
       <ul>
         {distances.map((distance, index) => (
-          <li key={index}>Walking distance: {distance}</li>
+          <li
+            className="mb-4 mt-5 p-4 bg-white border border-gray-300 rounded-lg shadow-md max-w-full text-lg"
+            key={index}
+          >
+            Walking distance: {distance}
+          </li>
         ))}
       </ul>
     </>
