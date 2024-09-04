@@ -10,6 +10,8 @@ import {
 } from "@react-google-maps/api";
 import "./App.css";
 import Popup from "./Popup";
+import PopupMarket from "./PopupMarket";
+import UserPop from "./UserPop";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const containerStyle = {
@@ -264,8 +266,8 @@ const redPolygonStyle = [
 
 // Update markers for fresh green markets to load on map
 const MARKET_MARKERS = [
-  { id: 1, name: "Fresh Market 1", lat: 37.9612, lng: -81.9988 },
-  { id: 2, name: "Fresh Market 2", lat: 36.9612, lng: -80.9988 },
+  { id: 1, name: "Fresh Market 1", lat: 37.9612, lng: -81.9988, address: "Columbus" },
+  { id: 2, name: "Fresh Market 2", lat: 36.9612, lng: -80.9988, address: "Ohio" },
 ];
 
 const bounds = {
@@ -281,9 +283,13 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [polygonPaths, setPolygonPaths] = useState([]);
   const [popup, setPopup] = useState(false);
+  const [marketPopup, setMarketPopup] = useState(false);
   const [directions, setDirections] = useState(null);
   const [distances, setDistances] = useState([]); // Changed to store multiple distances
   const [showMap, setShowMap] = useState(false);
+  const [supermarketName, setSuperMarketName] = useState("");
+  const [marketAddress, setMarketAddress] = useState("");
+  const [showUser, setShowUser] = useState(false)
 
   const fetchCoordinates = async () => {
     const responses = await Promise.all([
@@ -393,6 +399,22 @@ function App() {
     setPopup(false);
   }
 
+  function activateMarketPopup() {
+    setMarketPopup(true);
+  }
+
+  function deactivateMarketPopup() {
+    setMarketPopup(false);
+  }
+
+  function activateUserPopup() {
+    setShowUser(true);
+  }
+
+  function deactivateUserPopup() {
+    setShowUser(false);
+  }
+
   return (
     <>
       {/* <Link className="px-2 " to="/Home">
@@ -442,10 +464,16 @@ function App() {
             onUnmount={onUnmount}
             options={mapOption}
           >
-            <Marker icon={UserMarker} position={coordinates} />
-            {MARKET_MARKERS.map(({ id, lat, lng }) => (
+            <Marker onMouseOver={activateUserPopup} onMouseOut={deactivateUserPopup} icon={UserMarker} position={coordinates} />
+            {MARKET_MARKERS.map(({ id, lat, lng, name, address }) => (
               <Marker
                 onClick={handleDirection}
+                onMouseOver={() => {
+                  activateMarketPopup();
+                  setSuperMarketName(name);
+                  setMarketAddress(address);
+                }}
+                onMouseOut={deactivateMarketPopup}
                 key={id}
                 position={{ lat, lng }}
                 icon={FreshMarketMarkers}
@@ -470,6 +498,8 @@ function App() {
         )}
       </div>
       {popup ? <Popup /> : null}
+      {marketPopup ? <PopupMarket marketName={supermarketName} address={marketAddress} /> : null}
+      {showUser && (<UserPop />)}
 
       <ul>
         {distances.map((distance, index) => (

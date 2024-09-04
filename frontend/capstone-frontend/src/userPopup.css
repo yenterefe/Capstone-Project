@@ -1,12 +1,12 @@
-.popup {
+.userPopup {
     border: 1px black solid;
     background-color: white;
     padding: 50px;
     position: absolute;
     /* top: 50%;
     left: 50%; */
-    top: 750px;
-    left: 750px;
+    top: 600px;
+    left: 600px;
     font-size: 1rem;
     border-radius: 5px;
 
