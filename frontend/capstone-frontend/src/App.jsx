@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import img7 from "./images/img7.png";
+import logo1 from "./images/logo1.png";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -26,11 +27,11 @@ const initialCoordinates = {
 
 const UserMarker = {
   url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // URL to a custom marker icon
-}
+};
 
 const FreshMarketMarkers = {
   url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png", // URL to a custom marker icon
-}
+};
 
 //stylizing map
 const darkMode = [
@@ -38,211 +39,211 @@ const darkMode = [
     elementType: "geometry",
     stylers: [
       {
-        color: "#f5f5f5"
-      }
-    ]
+        color: "#f5f5f5",
+      },
+    ],
   },
   {
     elementType: "labels.icon",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#616161"
-      }
-    ]
+        color: "#616161",
+      },
+    ],
   },
   {
     elementType: "labels.text.stroke",
     stylers: [
       {
-        color: "#f5f5f5"
-      }
-    ]
+        color: "#f5f5f5",
+      },
+    ],
   },
   {
     featureType: "administrative.land_parcel",
     elementType: "labels",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     featureType: "administrative.land_parcel",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#bdbdbd"
-      }
-    ]
+        color: "#bdbdbd",
+      },
+    ],
   },
   {
     featureType: "poi",
     elementType: "geometry",
     stylers: [
       {
-        color: "#eeeeee"
-      }
-    ]
+        color: "#eeeeee",
+      },
+    ],
   },
   {
     featureType: "poi",
     elementType: "labels.text",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     featureType: "poi",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#757575"
-      }
-    ]
+        color: "#757575",
+      },
+    ],
   },
   {
     featureType: "poi.business",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     featureType: "poi.park",
     elementType: "geometry",
     stylers: [
       {
-        color: "#e5e5e5"
-      }
-    ]
+        color: "#e5e5e5",
+      },
+    ],
   },
   {
     featureType: "poi.park",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#9e9e9e"
-      }
-    ]
+        color: "#9e9e9e",
+      },
+    ],
   },
   {
     featureType: "road",
     elementType: "geometry",
     stylers: [
       {
-        color: "#ffffff"
-      }
-    ]
+        color: "#ffffff",
+      },
+    ],
   },
   {
     featureType: "road",
     elementType: "labels.icon",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     featureType: "road.arterial",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#757575"
-      }
-    ]
+        color: "#757575",
+      },
+    ],
   },
   {
     featureType: "road.highway",
     elementType: "geometry",
     stylers: [
       {
-        color: "#dadada"
-      }
-    ]
+        color: "#dadada",
+      },
+    ],
   },
   {
     featureType: "road.highway",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#616161"
-      }
-    ]
+        color: "#616161",
+      },
+    ],
   },
   {
     featureType: "road.local",
     elementType: "labels",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     featureType: "road.local",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#9e9e9e"
-      }
-    ]
+        color: "#9e9e9e",
+      },
+    ],
   },
   {
     featureType: "transit",
     stylers: [
       {
-        visibility: "off"
-      }
-    ]
+        visibility: "off",
+      },
+    ],
   },
   {
     featureType: "transit.line",
     elementType: "geometry",
     stylers: [
       {
-        color: "#e5e5e5"
-      }
-    ]
+        color: "#e5e5e5",
+      },
+    ],
   },
   {
     featureType: "transit.station",
     elementType: "geometry",
     stylers: [
       {
-        color: "#eeeeee"
-      }
-    ]
+        color: "#eeeeee",
+      },
+    ],
   },
   {
     featureType: "water",
     elementType: "geometry",
     stylers: [
       {
-        color: "#c9c9c9"
-      }
-    ]
+        color: "#c9c9c9",
+      },
+    ],
   },
   {
     featureType: "water",
     elementType: "labels.text.fill",
     stylers: [
       {
-        color: "#9e9e9e"
-      }
-    ]
+        color: "#9e9e9e",
+      },
+    ],
   },
 ];
 
@@ -251,7 +252,7 @@ const mapOption = {
   streetViewControl: false,
   mapTypeControl: false,
   fullscreenControl: false,
-}
+};
 
 //stylize polygon
 const redPolygonStyle = [
@@ -266,8 +267,20 @@ const redPolygonStyle = [
 
 // Update markers for fresh green markets to load on map
 const MARKET_MARKERS = [
-  { id: 1, name: "Fresh Market 1", lat: 37.9612, lng: -81.9988, address: "Columbus" },
-  { id: 2, name: "Fresh Market 2", lat: 36.9612, lng: -80.9988, address: "Ohio" },
+  {
+    id: 1,
+    name: "Fresh Market 1",
+    lat: 37.9612,
+    lng: -81.9988,
+    address: "Columbus",
+  },
+  {
+    id: 2,
+    name: "Fresh Market 2",
+    lat: 36.9612,
+    lng: -80.9988,
+    address: "Ohio",
+  },
 ];
 
 const bounds = {
@@ -289,7 +302,7 @@ function App() {
   const [showMap, setShowMap] = useState(false);
   const [supermarketName, setSuperMarketName] = useState("");
   const [marketAddress, setMarketAddress] = useState("");
-  const [showUser, setShowUser] = useState(false)
+  const [showUser, setShowUser] = useState(false);
 
   const fetchCoordinates = async () => {
     const responses = await Promise.all([
@@ -420,7 +433,7 @@ function App() {
       {/* <Link className="px-2 " to="/Home">
         Home
       </Link> */}
-      <div className="flex flex-col items-center">
+      {/* <div className="flex flex-col items-center">
         <div>
           <Link className="px-2" to="/Mission">
             Mission
@@ -438,12 +451,38 @@ function App() {
             <img src={img7} alt="avatar" />
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div>
-        <p>Looking for fresh markets? We can help. </p>
+      <header className="absolute left-0 top-0 z-20 flex w-full items-center p-3">
+        <div className="flex items-center w-full">
+          <div className="ml-10">
+            <a href="/SearchMap" className="block py-5">
+              <img
+                src={logo1}
+                alt="logo"
+                className="rounded"
+                style={{ width: "352.01px", height: "47.74px" }} // Set exact dimensions
+              />
+            </a>
+          </div>
+          <div className="flex justify-start ml-20">
+            <Link className="p-2 mr-8" to="/Mission">
+              Mission
+            </Link>
+            <Link className="p-2 mr-8" to="/">
+              Home
+            </Link>
+            <Link className="p-2 mr-8" to="/Team">
+              Team
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <div className=" mt-20">
+        <p className="text-lg">Looking for fresh markets? We can help. </p>
         <input
-          className="w-80 px-8 py-4 mr-2 mb-4 mt-4 rounded-lg border-2 border-gray-300 hover:border-blue-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250"
+          className="w-80 px-8 py-4 mr-2 mb-4 mt-7 rounded-lg border-2 border-gray-300 hover:border-blue-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250"
           type="text"
           placeholder="Search address"
           value={inputValue}
@@ -464,7 +503,12 @@ function App() {
             onUnmount={onUnmount}
             options={mapOption}
           >
-            <Marker onMouseOver={activateUserPopup} onMouseOut={deactivateUserPopup} icon={UserMarker} position={coordinates} />
+            <Marker
+              onMouseOver={activateUserPopup}
+              onMouseOut={deactivateUserPopup}
+              icon={UserMarker}
+              position={coordinates}
+            />
             {MARKET_MARKERS.map(({ id, lat, lng, name, address }) => (
               <Marker
                 onClick={handleDirection}
@@ -498,8 +542,10 @@ function App() {
         )}
       </div>
       {popup ? <Popup /> : null}
-      {marketPopup ? <PopupMarket marketName={supermarketName} address={marketAddress} /> : null}
-      {showUser && (<UserPop />)}
+      {marketPopup ? (
+        <PopupMarket marketName={supermarketName} address={marketAddress} />
+      ) : null}
+      {showUser && <UserPop />}
 
       <ul>
         {distances.map((distance, index) => (
