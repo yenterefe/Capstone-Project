@@ -257,9 +257,9 @@ const mapOption = {
 //stylize polygon
 const redPolygonStyle = [
   {
-    fillColor: "#FF0000", // Orange fill color
+    fillColor: "#FF0000", // Red fill color
     fillOpacity: 0.35, // Adjust the fill opacity as needed
-    strokeColor: "#FF0000", // Orange stroke color
+    strokeColor: "#FF0000", // Red stroke color
     strokeOpacity: 0.8, // Adjust the stroke opacity as needed
     strokeWeight: 2, // Set the stroke weight
   },
