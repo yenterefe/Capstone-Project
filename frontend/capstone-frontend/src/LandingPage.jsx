@@ -34,29 +34,30 @@ const LandingPage = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-5/12">
-              <div className="hero-content">
-                <h1 className="mb-40 text-4xl font-bold !leading-[1.208] text-dark dark:text-white sm:text-[42px] lg:text-[40px] xl:text-5xl">
-                  Lorem ipsum dolor sit amet consectetur
-                </h1>
-                <p className="mb-20 max-w-[480px] text-base text-body-color dark:text-dark-6">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Mollitia amet eligendi inventore. Expedita ducimus minima
-                  asperiores distinctio alias velit sunt voluptatibus esse
-                  impedit est repellendus, ipsam eius harum fugit qui.
-                </p>
+              {/* <div className="hero-content"> */}
+              <h1 className="mb-5 text-3xl font-bold text-dark dark:text-white sm:text-[40px]/[48px]">
+                Welcome
+              </h1>
+              <p className="mb-20 max-w-[480px] text-base text-body-color dark:text-dark-6">
+                to fresh finder, your trusted resource for tackling food deserts
+                and making fresh, nutritious food accessible. We connect
+                individuals with local farms, markets, and sustainable programs
+                that provide affordable produce, helping you advance toward a
+                healthier lifestyle and stronger community.
+              </p>
 
-                <div className="clients absolute bottom-0 left-0 w-full p-4">
-                  <h6 className="mt-20 flex items-center text-sm font-normal text-body-color dark:text-dark-6">
-                    For more information about food access:
-                    <span className="ml-2 inline-block h-px w-6 bg-body-color"></span>
-                  </h6>
+              <div className="clients absolute bottom-0 left-0 w-full p-4">
+                <h6 className="mt-20 flex items-center text-sm font-normal text-body-color dark:text-dark-6">
+                  For more information about food access:
+                  <span className="ml-2 inline-block h-px w-6 bg-body-color"></span>
+                </h6>
 
-                  <div className="flex  items-center space-x-2">
-                    <SingleImage
-                      href="https://gisportal.ers.usda.gov/portal/apps/experiencebuilder/experience/?id=a53ebd7396cd4ac3a3ed09137676fd40&page=Introduction"
-                      imgSrc={img5}
-                    />
-                    {/* <SingleImage
+                <div className="flex  items-center space-x-2">
+                  <SingleImage
+                    href="https://gisportal.ers.usda.gov/portal/apps/experiencebuilder/experience/?id=a53ebd7396cd4ac3a3ed09137676fd40&page=Introduction"
+                    imgSrc={img5}
+                  />
+                  {/* <SingleImage
                       href="#"
                       imgSrc="https://cdn.tailgrids.com/2.0/image/assets/images/brands/graygrids.svg"
                     />
@@ -65,9 +66,9 @@ const LandingPage = () => {
                       href="#"
                       imgSrc="https://cdn.tailgrids.com/2.0/image/assets/images/brands/uideck.svg"
                     /> */}
-                  </div>
                 </div>
               </div>
+              {/* </div> */}
             </div>
             <div className="hidden px-4 lg:block lg:w-1/12"></div>
             <div className="w-full px-4 lg:w-6/12">

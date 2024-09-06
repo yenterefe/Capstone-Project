@@ -634,24 +634,19 @@ function Mission() {
                   Helping communities access fresh fruits and vegetables
                 </h2>
                 <p className="mb-5 text-base text-body-color dark:text-dark-6">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
+                  At FreshFinder, we aim to ensure everyone's access to fresh
+                  fruits and vegetables through affordable and sustainable
+                  programs. Healthy communities are built on nutritious food,
+                  and we are committed to supporting local farmers and markets
+                  to make fresh produce available to all.
                 </p>
                 <p className="mb-8 text-base text-body-color dark:text-dark-6">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
+                  Our goals focus on increasing access to nutritious food,
+                  supporting local agriculture, and promoting healthy
+                  lifestyles. By addressing food deserts, reducing environmental
+                  impact, and educating the community, we aim to foster
+                  healthier individuals and a stronger, more resilient regional
+                  economy.
                 </p>
                 {/* <a
                   href="javascript:void(0)"
