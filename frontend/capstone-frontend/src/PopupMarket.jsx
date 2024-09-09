@@ -3,8 +3,8 @@ import "./marketPopup.css";
 function PopupMarket(props) {
     return (
         <div className="popupMarket">
-            <h1>Fresh market: {props.marketName}</h1>
-            <h1>Address: {props.address} </h1>
+            <h1> {props.marketName}</h1>
+            <h1>{props.address} </h1>
         </div>
 
     )

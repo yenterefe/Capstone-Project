@@ -269,18 +269,25 @@ const redPolygonStyle = [
 const MARKET_MARKERS = [
   {
     id: 1,
-    name: "Fresh Market 1",
-    lat: 37.9612,
-    lng: -81.9988,
-    address: "Columbus",
+    name: "All People's Fresh Market",
+    lat: 39.944580,
+    lng: -82.983200,
+    address: "945 Parsons Ave, Columbus, OH 43206",
   },
   {
     id: 2,
-    name: "Fresh Market 2",
-    lat: 36.9612,
-    lng: -80.9988,
-    address: "Ohio",
+    name: "North Market Downtown",
+    lat: 39.971889,
+    lng: -83.004181,
+    address: "59 Spruce St, Columbus, OH 43215",
   },
+  {
+    id: 3,
+    name: "The Linden Fresh Market",
+    lat: 39.995010,
+    lng: -82.979720,
+    address: "1464 Cleveland Ave, Columbus, OH 43211",
+  }
 ];
 
 const bounds = {
@@ -306,12 +313,13 @@ function App() {
 
   const fetchCoordinates = async () => {
     const responses = await Promise.all([
-      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc1"),
-      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc5"),
-      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc7"),
-      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc3"),
-      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dc9"),
-      axios.get("http://localhost:3000/coordinates/66d523810ba9bbb50d262dcb"),
+      axios.get("http://localhost:3000/coordinates/66df6965f2092131a54316a4"),
+      axios.get("http://localhost:3000/coordinates/66df6965f2092131a54316a6"),
+      axios.get("http://localhost:3000/coordinates/66df6965f2092131a54316aa"),
+      axios.get("http://localhost:3000/coordinates/66df6965f2092131a54316a8"),
+      axios.get("http://localhost:3000/coordinates/66df6966f2092131a54316ae"),
+      axios.get("http://localhost:3000/coordinates/66df6966f2092131a54316ac"),
+
     ]);
 
     const paths = responses.map((response) => response.data);
