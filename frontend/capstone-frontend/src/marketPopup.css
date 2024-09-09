@@ -4,8 +4,15 @@
     background-color: white;
     padding: 5px;
     position: absolute;
-    top: 700px;
-    left: 700px;
+    /* top: 700px;
+    left: 700px; */
+    top: 80%;
+    left: 50%;
     border-radius: 5px;
 
+}
+
+.title {
+    font-style: bold;
+    text-align: center;
 }
