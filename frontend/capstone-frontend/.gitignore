@@ -24,6 +24,6 @@ dist-ssr
 *.sw?
 
 
-frontend/capstone-frontend/.env
+.env
 
 
