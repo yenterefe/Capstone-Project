@@ -1,35 +1,12 @@
 import { Link } from "react-router-dom";
 import t1 from "./images/t1.jpg";
 import logo1 from "./images/logo1.png";
+import Navigation from "./Navigation";
 
 function Team() {
   return (
     <>
-      <header className="absolute left-0 top-0 z-20 flex w-full items-center p-3">
-        <div className="flex items-center w-full">
-          <div className="ml-10">
-            <a href="/SearchMap" className="block py-5">
-              <img
-                src={logo1}
-                alt="logo"
-                className="rounded"
-                style={{ width: "352.01px", height: "47.74px" }} // Set exact dimensions
-              />
-            </a>
-          </div>
-          <div className="flex justify-start ml-20">
-            <Link className="p-2 mr-8" to="/Mission">
-              Mission
-            </Link>
-            <Link className="p-2 mr-8" to="/">
-              Home
-            </Link>
-            <Link className="p-2 mr-8" to="/SearchMap">
-              Map
-            </Link>
-          </div>
-        </div>
-      </header>
+    <Navigation/>
 
       <div className="hero bg-base-200 max-h-screen rounded pt-20">
         {" "}

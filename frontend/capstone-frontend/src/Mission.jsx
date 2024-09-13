@@ -1,38 +1,16 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import img2 from "./images/img2.jpg";
 import img4 from "./images/img4.jpg";
 import img3 from "./images/img3.jpg";
 import Button from "./Button.jsx";
 import logo1 from "./images/logo1.png";
+import Navigation from "./Navigation.jsx";
 
 function Mission() {
   return (
     <>
-      <header className="absolute left-0 top-0 z-20 flex w-full items-center p-3">
-        <div className="flex items-center w-full">
-          <div className="ml-10">
-            <a href="/SearchMap" className="block py-5">
-              <img
-                src={logo1}
-                alt="logo"
-                className="rounded"
-                style={{ width: "352.01px", height: "47.74px" }} // Set exact dimensions
-              />
-            </a>
-          </div>
-          <div className="flex justify-start ml-20">
-            <Link className="p-2 mr-8" to="/Team">
-              Team
-            </Link>
-            <Link className="p-2 mr-8" to="/">
-              Home
-            </Link>
-            <Link className="p-2 mr-8" to="/SearchMap">
-              Map
-            </Link>
-          </div>
-        </div>
-      </header>
+     <Navigation/>
 
       <section className="overflow-hidden pt-20 pb-12 lg:pt-[170px] lg:pb-[90px] bg-white dark:bg-dark">
         <div className="container mx-auto">

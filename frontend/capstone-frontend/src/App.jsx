@@ -13,6 +13,7 @@ import "./App.css";
 import Popup from "./Popup";
 import PopupMarket from "./PopupMarket";
 import UserPop from "./UserPop";
+import Navigation from "./Navigation";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const containerStyle = {
@@ -461,43 +462,20 @@ function App() {
         </div>
       </div> */}
 
-      <header className="absolute left-0 top-0 z-20 flex w-full items-center p-3">
-        <div className="flex items-center w-full">
-          <div className="ml-10">
-            <a href="/SearchMap" className="block py-5">
-              <img
-                src={logo1}
-                alt="logo"
-                className="rounded"
-                style={{ width: "352.01px", height: "47.74px" }} // Set exact dimensions
-              />
-            </a>
-          </div>
-          <div className="flex justify-start ml-20">
-            <Link className="p-2 mr-8" to="/Mission">
-              Mission
-            </Link>
-            <Link className="p-2 mr-8" to="/">
-              Home
-            </Link>
-            <Link className="p-2 mr-8" to="/Team">
-              Team
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Navigation/>
 
       <div className=" mt-20">
-        <p className="text-lg">Looking for fresh markets? We can help. </p>
+      {/* <p className="text-lg">Looking for fresh markets? We can help. </p>*/}
+
         <input
-          className="w-80 px-8 py-4 mr-2 mb-4 mt-7 rounded-lg border-2 border-gray-300 hover:border-blue-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250"
+          className="font-sans text-2xl font-thin w-3/4 h-24 px-8 py-4 mr-2 mb-4 mt-7 rounded-full border border-gray-300 hover:border-blue-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250"
           type="text"
           placeholder="Search address"
           value={inputValue}
           onChange={handleInput}
         />
         <button
-          className="px-6 py-3.5 mb-1 mt-1  border-2 border-gray-300 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250 text-md"
+          className="w-36 h-24 px-8 py-4 mr-2 mb-4 mt-7 border rounded-full border-gray-300 focus:border-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none transition-colors duration-250 text-md"
           onClick={handleClick}
         >
           🥕
