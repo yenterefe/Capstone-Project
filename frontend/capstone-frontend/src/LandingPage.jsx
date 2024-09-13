@@ -47,12 +47,9 @@ const LandingPage = () => {
               </p>
 
               <div className="clients absolute bottom-0 left-0 w-full p-4">
-                <h6 className="mt-20 flex items-center text-sm font-normal text-body-color dark:text-dark-6">
-                  For more information about food access:
-                  <span className="ml-2 inline-block h-px w-6 bg-body-color"></span>
-                </h6>
 
-                <div className="flex  items-center space-x-2">
+
+                <div className="flex items-center space-x-2">
                   <SingleImage
                     href="https://gisportal.ers.usda.gov/portal/apps/experiencebuilder/experience/?id=a53ebd7396cd4ac3a3ed09137676fd40&page=Introduction"
                     imgSrc={img5}
@@ -129,8 +126,11 @@ export default LandingPage;
 const SingleImage = ({ href, imgSrc }) => {
   return (
     <>
-      <a href={href} className="flex w-full items-center justify-start ">
-        <img src={img5} alt="brand image" className="w-40 h-40 mr-30" />
+      <a
+        href={href}
+        className="flex absolute bottom-0 left-0 w-full items-center justify-start"
+      >
+        <img src={img5} alt="brand image" className="w-20 h-20 mr-4" />
       </a>
     </>
   );
